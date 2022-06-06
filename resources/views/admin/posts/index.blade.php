@@ -9,11 +9,19 @@
             <tr>
                 <th>Title</th>
                 <th>Slug</th>
+                <th>Tags</th>
             </tr>
             @foreach ($posts as $post)
                 <tr>
                     <td>{{ $post->title }}</td>
                     <td>{{ $post->slug }}</td>
+                    <td>
+                        @forelse ($post->tags as $tag)
+                            #{{ $tag->name }}
+                        @empty
+                            <p>Nessun tag trovato</p>
+                        @endforelse
+                    </td>
                     <td>
                         {{-- LINK PER LA VISUALIZZAZIONE DEL POST --}}
                         <a href="{{ route('admin.posts.show', $post->id) }}">
