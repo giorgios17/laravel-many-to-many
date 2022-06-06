@@ -13,7 +13,9 @@ class Post extends Model
     public function category(){
         return $this->belongsTo('App\Category');
     }
-
+    public function tags(){
+        return $this->belongsToMany('App\Tag');
+    }
 
     // FUNZIONE CHE RITORNA UNO SLUG UNICO
     public static function uniqueSlug($title){
