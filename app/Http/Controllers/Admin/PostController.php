@@ -48,13 +48,16 @@ class PostController extends Controller
         $request->validate([
             'title'=> 'required|max:255',
             'content'=> 'required',
-            'category_id'=>'required'
+            'category_id'=>'required',
+            'tags[]'=>'exists:tags,id'
         ]);
 
         $postData = $request->all();
         $newPost = new Post();
         $newPost->fill($postData);
         $newPost->slug = Post::uniqueSlug($newPost->title);
+        $newPost->save();
+        $newPost->tags()->sync($postData['tags']);
         $newPost->save();
         return redirect()->route('admin.posts.index');
     }
