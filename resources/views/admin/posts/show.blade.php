@@ -23,8 +23,10 @@
         {{ $post->category->name }}
         </p>
         <h5>Tags: </h5>
-        @foreach ($post->tags as $tag)
+        @forelse ($post->tags as $tag)
             <p>{{ $tag->name }}</p>
-        @endforeach
+        @empty
+            <p>Nessun tag trovato</p>
+        @endforelse
     </div>
 @endsection

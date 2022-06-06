@@ -86,7 +86,8 @@ class PostController extends Controller
         //
         $categories = Category::all();
         $post = Post::findOrFail($id);
-        return view('admin.posts.edit', compact('post', 'categories'));
+        $tags = Tag::all();
+        return view('admin.posts.edit', compact('post', 'categories','tags'));
     }
 
     /**
@@ -102,7 +103,8 @@ class PostController extends Controller
         $request->validate([
             'title'=> 'required|max:255',
             'content'=> 'required',
-            'category_id'=>'required'
+            'category_id'=>'required',
+            'tags[]'=>'exists:tags,id'
 
         ]);
 
@@ -111,6 +113,9 @@ class PostController extends Controller
         $post->fill($data);
         $post->slug = Post::uniqueSlug($post->title);
         $post->save();
+        $post->tags()->sync($data['tags']);
+        $post->save();
+
         return redirect()->route('admin.posts.index', $post->id);
     }
 

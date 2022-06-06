@@ -31,6 +31,13 @@
         @error('category_id')
             <div class="text-danger">{{ $message }}</div>
         @enderror
+        <p>Tags</p>
+        @foreach ($tags as $tag)
+            <div>
+                <input type="checkbox" name="tags[]" value="{{ $tag->id }}">
+                <label> {{ $tag->name }}</label>
+            </div>
+        @endforeach
         <input class="btn btn-primary mt-5" type="submit">
     </form>
 @endsection
