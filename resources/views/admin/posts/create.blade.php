@@ -18,7 +18,7 @@
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
-        <select class="form-control" name="category_id">
+        <select class="form-control mb-5" name="category_id">
             <option value="">--Seleziona genere--</option>
             @foreach ($categories as $category)
                 <option value="{{ $category->id }}" {{ $category->id == old('category_id') ? 'selected' : '' }}>
@@ -28,6 +28,17 @@
         @error('category_id')
             <div class="text-danger">{{ $message }}</div>
         @enderror
-        <input class="btn btn-primary mt-5" type="submit">
+
+        {{-- CHECKBOX TAGS --}}
+        <p>Tags</p>
+        @foreach ($tags as $tag)
+            <div>
+                <input type="checkbox" name="{{ $tag->name }}" value="{{ $tag->id }}">
+                <label for="{{ $tag->name }}"> {{ $tag->name }}</label>
+            </div>
+        @endforeach
+
+        {{-- submit button --}}
+        <input class="btn btn-primary mt-3" type="submit">
     </form>
 @endsection
