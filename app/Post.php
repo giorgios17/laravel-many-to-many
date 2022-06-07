@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 class Post extends Model
 {
     //
+    //protected $guarded = [''];
     protected $fillable = ['title', 'content', 'slug', 'category_id'];
 
     public function category(){
